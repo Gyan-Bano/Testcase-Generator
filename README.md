@@ -88,6 +88,20 @@ The following languages are supported for testcase generation:
 
 ## How it Works ? 🤔
 
+The generator works in a simple pipeline:
+
+1. You edit a language-specific `logic` file in `/tc_generator` (`logic.py`, `logic.cpp`, etc.) with your solution.
+2. You edit the input generation block in `tc_gen.py` to describe how random/edge-case inputs should be created.
+3. Running `python tc_gen.py` creates multiple `inputXX.txt` files, compiles the selected language (if needed), and executes your logic against each input.
+4. The produced outputs are saved as `outputXX.txt` and then packaged based on platform format:
+   - HackerRank / HackerEarth: `test-cases.zip`
+   - CodeChef: `test-cases/` directory
+
+Core files:
+- `tc_generator/tc_gen.py`: main CLI flow for generating, running, and packaging testcases
+- `tc_generator/lang_compiler.py`: compile/run commands for each supported language
+- `test/`: pytest checks for generation, zip structure, and LF line endings
+
 ![Demo](demo3.gif)
 
 ## Setup using Docker 🐳
